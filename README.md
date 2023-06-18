@@ -1,8 +1,9 @@
 # Opening expert
 
-Develop your opening repertoire
+Build your chess opening repertoire.
 
-https://opening.expert/
+Site: https://opening.expert/
+Blog: https://blog.opening.expert/
 
 ## Installation
 
@@ -15,3 +16,5 @@ yarn install
 ```
 yarn dev
 ```
+
+
