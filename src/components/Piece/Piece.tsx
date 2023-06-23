@@ -8,11 +8,11 @@ interface Props {
   sizePx?: number;
 }
 
-const Piece = ({ piece, color, sizePx = 45 }: Props) => {
+const Piece = ({ piece, color, sizePx = 70 }: Props) => {
   return (
     <Box
-      w={sizePx}
-      h={sizePx}
+      w={`${sizePx}px`}
+      h={`${sizePx}px`}
       backgroundImage={getPieceSvg(piece, color)}
       backgroundSize={"100% auto"}
     />

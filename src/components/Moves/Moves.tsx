@@ -10,7 +10,7 @@ const Moves = () => {
   } = useStudyStore();
   const history = chess.history({ verbose: true });
   return (
-    <div>
+    <Box>
       <Heading>Study</Heading>
       {history.map((m, i) => {
         if (i % 2) return;
@@ -39,7 +39,7 @@ const Moves = () => {
       <Button onClick={() => setCurrentMoveIndex(moveLength() - 1)}>
         {">|"}
       </Button>
-    </div>
+    </Box>
   );
 };
 

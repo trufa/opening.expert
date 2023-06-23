@@ -2,11 +2,15 @@ import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
 import { api } from "~/api";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import "~/styles/globals.css";
 import "node_modules/chessground/assets/chessground.base.css";
 import "node_modules/chessground/assets/chessground.brown.css";
 import "node_modules/chessground/assets/chessground.cburnett.css";
+
+const theme = extendTheme({
+  boxSizing: "border-box",
+});
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -14,7 +18,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <Component {...pageProps} />
       </ChakraProvider>
     </SessionProvider>

@@ -3,6 +3,8 @@ import { Chess, Move, PieceSymbol } from "chess.js";
 import { v4 as uuidv4 } from "uuid";
 import { Dests, FEN, Key } from "chessground/types";
 import { devtools } from "zustand/middleware";
+import useBoardStore from "./board";
+import { PromotionPieces } from "~/types";
 
 type Index = number;
 
@@ -20,7 +22,7 @@ interface StudyState {
   currentMoveIndex: Index;
   setMoveDataByIndex: (index: Index, moveData: MoveData) => void;
   setCurrentMoveIndex: (index: Index) => void;
-  move: (orig: Key, dest: Key) => Move;
+  move: (orig: Key, dest: Key) => void;
   computed: {
     moveLength: () => number;
   };
@@ -40,6 +42,14 @@ const toDests = (fen: FEN): Dests => {
       );
     });
   return dests;
+};
+
+const promotionChess = new Chess();
+const isPromotion = (fen: FEN, orig: Key, dest: Key): boolean => {
+  promotionChess.load(fen);
+  return promotionChess
+    .move({ from: orig, to: dest, promotion: "q" })
+    .flags.includes("p");
 };
 
 const useStudyStore = create<StudyState>()(
@@ -76,11 +86,11 @@ const useStudyStore = create<StudyState>()(
         });
       },
       move: (orig, dest) => {
-        const todo = (promotion: Exclude<PieceSymbol, "p" | "k">) => {
+        const todo = (promotion: PromotionPieces | null) => {
           const move = get().chess.move({
             from: orig,
             to: dest,
-            promotion: promotion,
+            ...(promotion && { promotion }),
           });
           set((state) => {
             const nextIndex = state.currentMoveIndex + 1;
@@ -92,9 +102,22 @@ const useStudyStore = create<StudyState>()(
               }),
             };
           });
-          return move;
         };
-        return todo("q");
+        if (isPromotion(get().chess.fen(), orig, dest)) {
+          useBoardStore.getState().toggle();
+          const unsub = useBoardStore.subscribe(
+            (state) => state.promotionPiece,
+            (promotion) => {
+              if (promotion) {
+                todo(promotion);
+                unsub();
+                useBoardStore.getState().setPromotionPiece(null);
+              }
+            }
+          );
+        } else {
+          todo(null);
+        }
       },
     };
   })

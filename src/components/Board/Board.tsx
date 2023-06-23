@@ -3,6 +3,7 @@ import { Box } from "@chakra-ui/react";
 import { Chessground as ChessgroundApi } from "chessground";
 import { Api } from "chessground/api";
 import useStudyStore from "~/state/study";
+import BoardModal from "~/components/Board/BoardModal";
 
 const Board = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -34,8 +35,9 @@ const Board = () => {
     setCg(chessgroundApi);
   }, [ref]);
   return (
-    <Box w={"800px"} h={"800px"}>
-      <div
+    <Box w={"800px"} h={"800px"} position={"relative"}>
+      <BoardModal />
+      <Box
         ref={ref}
         style={{ height: "100%", width: "100%", display: "table" }}
       />
