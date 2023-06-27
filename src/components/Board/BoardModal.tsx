@@ -13,9 +13,8 @@ const BoardModal = () => {
       height={"100%"}
       position={"absolute"}
       zIndex={3}
-      visibility={show ? "visible" : "hidden"}
       backgroundColor={"rgba(0,0,0,0.5)"}
-      display={"flex"}
+      display={show ? "flex" : "none"}
       justifyContent={"center"}
       alignItems={"center"}
     >
