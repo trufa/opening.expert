@@ -13,9 +13,8 @@ const BoardModal = () => {
       height={"100%"}
       position={"absolute"}
       zIndex={3}
-      visibility={show ? "visible" : "hidden"}
       backgroundColor={"rgba(0,0,0,0.5)"}
-      display={"flex"}
+      display={show ? "flex" : "none"}
       justifyContent={"center"}
       alignItems={"center"}
     >
@@ -25,7 +24,6 @@ const BoardModal = () => {
             onClick={() => setPromotionPiece(piece)}
             key={`promotion-piece-${piece}`}
             rounded={10}
-            onMouseEnter={(e) => {}}
             _hover={{
               boxShadow: "3px 3px 5px 0px rgba(0,0,0,0.1)",
             }}
