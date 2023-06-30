@@ -1,9 +1,6 @@
 import { Square } from "chess.js";
 
-interface GetPixelLocationBySquare {
-  x: number;
-  y: number;
-}
+type GetPixelLocationBySquare = [number, number];
 
 export const getOffsetBySquare = (
   boardSizePx: number,
@@ -24,5 +21,5 @@ export const getOffsetBySquare = (
   const rankMultiplier = 8 - parseInt(square.charAt(1), 10);
   const x = fileMultiplier! * squareSize + squareSize / 2;
   const y = rankMultiplier! * squareSize + squareSize / 2;
-  return { x, y };
+  return [x, y];
 };

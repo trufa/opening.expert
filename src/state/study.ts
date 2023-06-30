@@ -123,4 +123,10 @@ const useStudyStore = create<StudyState>()(
   })
 );
 
+// @ts-ignore
+if (typeof window !== "undefined" && window.Cypress) {
+  // @ts-ignore
+  window.useStudyStore = useStudyStore;
+}
+
 export default useStudyStore;

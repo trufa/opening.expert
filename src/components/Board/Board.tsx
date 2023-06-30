@@ -30,6 +30,7 @@ const Board = () => {
       events: {
         move,
       },
+      trustAllEvents: true,
     });
     if (cg) return;
     setCg(chessgroundApi);
