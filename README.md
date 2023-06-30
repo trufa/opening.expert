@@ -17,4 +17,10 @@ yarn install
 yarn dev
 ```
 
+## E2E tests
+
+```
+yarn cypres run
+cypress open
+```
 
