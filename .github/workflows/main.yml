@@ -18,3 +18,5 @@ jobs:
         with:
           build: npm run build
           start: npm start
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
