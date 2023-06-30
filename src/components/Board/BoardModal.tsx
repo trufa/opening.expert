@@ -22,6 +22,7 @@ const BoardModal = () => {
         {promotionPieces.map((piece) => (
           <Box
             onClick={() => setPromotionPiece(piece)}
+            data-cy={`promotion-piece-${piece}`}
             key={`promotion-piece-${piece}`}
             rounded={10}
             _hover={{
