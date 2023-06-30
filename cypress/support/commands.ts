@@ -1,18 +1,18 @@
 /// <reference types="cypress" />
 
 import { getOffsetBySquare } from "../utils/utils";
-import { Square } from "chess.js";
+import { ClickMove } from "../types";
+import { FEN } from "chessground/types";
 
 declare global {
   namespace Cypress {
     interface Chainable {
       move(clickMove: ClickMove): Chainable<void>;
-      getStudyFen(): Chainable<void>;
+      fenShould(fen: FEN): void;
+      data(dataCyId: string): Chainable<JQuery<HTMLElement>>;
     }
   }
 }
-
-type ClickMove = [Square, Square];
 
 Cypress.Commands.add("move", (clickMove) => {
   const boardSizePx = 800;
@@ -21,11 +21,15 @@ Cypress.Commands.add("move", (clickMove) => {
   });
 });
 
-Cypress.Commands.add("getStudyFen", () => {
-  return cy
-    .window()
+Cypress.Commands.add("fenShould", (fen) => {
+  cy.window()
     .its("useStudyStore")
     .invoke("getState")
     .its("chess")
-    .invoke("fen");
+    .invoke("fen")
+    .should("eq", fen);
+});
+
+Cypress.Commands.add("data", (dataCyId) => {
+  return cy.get(`[data-cy="${dataCyId}"]`);
 });
