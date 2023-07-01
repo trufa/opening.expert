@@ -35,8 +35,4 @@ describe("Check basic moves in study", () => {
       cy.fenShould(fen);
     });
   }
-
-  it("Should fail 3", () => {
-    expect("a").to.eq("b");
-  });
 });
