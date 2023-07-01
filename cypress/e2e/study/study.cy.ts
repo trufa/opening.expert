@@ -36,7 +36,7 @@ describe("Check basic moves in study", () => {
     });
   }
 
-  it("Should fail 2", () => {
+  it("Should fail 3", () => {
     expect("a").to.eq("b");
   });
 });
