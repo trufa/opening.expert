@@ -46,4 +46,11 @@ describe("Check that controls move around", () => {
     expect(cy.data("control-forward").should("be.disabled"));
     expect(cy.data("control-end").should("be.disabled"));
   });
+
+  it("Should be disabled when click last move", () => {
+    cy.data("move-1").click();
+    cy.data("move-6").click();
+    expect(cy.data("control-forward").should("be.disabled"));
+    expect(cy.data("control-end").should("be.disabled"));
+  });
 });
