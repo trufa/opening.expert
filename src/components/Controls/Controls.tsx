@@ -7,25 +7,34 @@ const Controls = () => {
     setCurrentMoveIndex,
     computed: { moveLength },
   } = useStudyStore();
+  const backDisabled = currentMoveIndex === 0;
+  const forwardDisabled = currentMoveIndex === moveLength() - 1;
   return (
     <>
-      <Button data-cy={"control-start"} onClick={() => setCurrentMoveIndex(0)}>
+      <Button
+        isDisabled={backDisabled}
+        data-cy={"control-start"}
+        onClick={() => setCurrentMoveIndex(0)}
+      >
         {"|<"}
       </Button>
       <Button
-        data-ct={"control-back"}
+        isDisabled={backDisabled}
+        data-cy={"control-back"}
         onClick={() => setCurrentMoveIndex(currentMoveIndex - 1)}
       >
         {"<"}
       </Button>
       <Button
-        data-ct={"control-forward"}
+        isDisabled={forwardDisabled}
+        data-cy={"control-forward"}
         onClick={() => setCurrentMoveIndex(currentMoveIndex + 1)}
       >
         {">"}
       </Button>
       <Button
-        data-ct={"control-end"}
+        isDisabled={forwardDisabled}
+        data-cy={"control-end"}
         onClick={() => setCurrentMoveIndex(moveLength() - 1)}
       >
         {">|"}

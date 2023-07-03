@@ -26,4 +26,17 @@ describe("Check that PgnViewer component works as expected", () => {
     cy.data("move-33").click();
     cy.fenShould("1n1Rkb1r/p4ppp/4q3/4p1B1/4P3/8/PPP2PPP/2K5 b k - 1 17");
   });
+
+  it("Should do nothing when clicking empty second ply", () => {
+    cy.playGame(gamesBySquares.shortExampleWithEmptySecondPly);
+    cy.data("move-6").click();
+    cy.fenShould(
+      "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3"
+    );
+    cy.data("move-3").click();
+    cy.data("move-6").click();
+    cy.fenShould(
+      "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2"
+    );
+  });
 });
