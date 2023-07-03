@@ -20,11 +20,11 @@ interface StudyState {
   moveDataByIndex: Map<number, MoveData>;
   branches: Map<Index, StudyState[]>;
   currentMoveIndex: Index;
-  setMoveDataByIndex: (index: Index, moveData: MoveData) => void;
   setCurrentMoveIndex: (index: Index) => void;
   move: (orig: Key, dest: Key) => void;
   computed: {
     moveLength: () => number;
+    currentFen: () => FEN;
   };
 }
 
@@ -55,19 +55,21 @@ const isPromotion = (fen: FEN, orig: Key, dest: Key): boolean => {
 const useStudyStore = create<StudyState>()(
   devtools((set, get) => {
     const chess = new Chess();
-    const fen = chess.fen();
+    const initialFen = chess.fen();
     return {
       id: uuidv4(),
       parent: null,
       chess,
       moveDataByIndex: new Map().set(0, {
-        fen: fen,
-        dests: toDests(fen),
+        fen: initialFen,
+        dests: toDests(initialFen),
       }),
       branches: new Map(),
       currentMoveIndex: 0,
       computed: {
         moveLength: () => get().moveDataByIndex.size,
+        currentFen: () =>
+          get().moveDataByIndex.get(get().currentMoveIndex)?.fen ?? initialFen,
       },
       setCurrentMoveIndex: (index: number) => {
         if (index < 0) {
@@ -79,12 +81,6 @@ const useStudyStore = create<StudyState>()(
         }
         set(() => ({ currentMoveIndex: index }));
       },
-      setMoveDataByIndex: (index, moveData) => {
-        set((state) => {
-          state.moveDataByIndex.set(index, moveData);
-          return state;
-        });
-      },
       move: (orig, dest) => {
         const todo = (promotion: PromotionPieces | null) => {
           const move = get().chess.move({
@@ -92,6 +88,7 @@ const useStudyStore = create<StudyState>()(
             to: dest,
             ...(promotion && { promotion }),
           });
+          console.log(`["${move.from}", "${move.to}"]`);
           set((state) => {
             const nextIndex = state.currentMoveIndex + 1;
             return {
