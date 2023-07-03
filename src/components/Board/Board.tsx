@@ -10,6 +10,7 @@ const Board = () => {
   const { currentMoveIndex, moveDataByIndex, move } = useStudyStore();
   const [cg, setCg] = useState<Api>();
   useEffect(() => {
+    console.log("useEffect fen", moveDataByIndex.get(currentMoveIndex)!.fen);
     cg?.set({
       fen: moveDataByIndex.get(currentMoveIndex)!.fen,
       movable: {

@@ -1,4 +1,4 @@
-import { ClickMove } from "../../types";
+import gamesBySquares from "../../utils/gamesBySquares";
 
 describe("Check basic moves in study", () => {
   beforeEach(() => {
@@ -19,18 +19,7 @@ describe("Check basic moves in study", () => {
 
   for (const [p, fen] of Object.entries(promotionPieceFenMap)) {
     it(`Can promote to "${p}"`, () => {
-      const moves: ClickMove[] = [
-        ["e2", "e4"],
-        ["d7", "d5"],
-        ["e4", "d5"],
-        ["c7", "c6"],
-        ["d5", "c6"],
-        ["e7", "e6"],
-        ["c6", "b7"],
-        ["e6", "e5"],
-        ["b7", "a8"],
-      ];
-      moves.map((m) => cy.move(m));
+      cy.playGame(gamesBySquares.shortPathToPromotion);
       cy.data(`promotion-piece-${p}`).click();
       cy.fenShould(fen);
     });
