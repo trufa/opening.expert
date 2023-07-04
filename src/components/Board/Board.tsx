@@ -37,7 +37,7 @@ const Board = () => {
     setCg(chessgroundApi);
   }, [ref]);
   return (
-    <Box w={"800px"} h={"800px"} position={"relative"}>
+    <Box minW={"800px"} w={"800px"} h={"800px"} position={"relative"}>
       <BoardModal />
       <Box
         ref={ref}
