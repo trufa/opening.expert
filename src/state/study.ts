@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Chess, Move, PieceSymbol } from "chess.js";
+import { Chess } from "chess.js";
 import { v4 as uuidv4 } from "uuid";
 import { Dests, FEN, Key } from "chessground/types";
 import { devtools } from "zustand/middleware";
