@@ -16,10 +16,11 @@ declare global {
   }
 }
 
+const TEST_BOARD_SIZE_PX = 800;
+
 Cypress.Commands.add("move", (clickMove) => {
-  const boardSizePx = 800;
   clickMove.map((square) => {
-    cy.get("cg-board").click(...getOffsetBySquare(800, square));
+    cy.get("cg-board").click(...getOffsetBySquare(TEST_BOARD_SIZE_PX, square));
   });
 });
 

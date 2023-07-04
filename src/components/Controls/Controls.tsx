@@ -7,6 +7,8 @@ import {
   PiArrowLineRight,
 } from "react-icons/pi";
 
+import { LuFlipVertical } from "react-icons/lu";
+
 const Controls = () => {
   const {
     currentMoveIndex,
@@ -44,6 +46,9 @@ const Controls = () => {
         onClick={() => setCurrentMoveIndex(moveLength() - 1)}
       >
         <Icon as={PiArrowLineRight} />
+      </Button>
+      <Button>
+        <Icon as={LuFlipVertical} />
       </Button>
     </>
   );
