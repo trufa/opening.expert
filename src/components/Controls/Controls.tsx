@@ -8,6 +8,7 @@ import {
 } from "react-icons/pi";
 
 import { LuFlipVertical } from "react-icons/lu";
+import useBoardStore from "~/state/board";
 
 const Controls = () => {
   const {
@@ -15,6 +16,7 @@ const Controls = () => {
     setCurrentMoveIndex,
     computed: { moveLength },
   } = useStudyStore();
+  const { toggleOrientation } = useBoardStore();
   const backDisabled = currentMoveIndex === 0;
   const forwardDisabled = currentMoveIndex === moveLength() - 1;
   return (
@@ -47,7 +49,7 @@ const Controls = () => {
       >
         <Icon as={PiArrowLineRight} />
       </Button>
-      <Button>
+      <Button onClick={toggleOrientation}>
         <Icon as={LuFlipVertical} />
       </Button>
     </>

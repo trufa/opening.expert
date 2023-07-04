@@ -1,17 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box } from "@chakra-ui/react";
-import { Chessground as ChessgroundApi } from "chessground";
-import { Api } from "chessground/api";
+import { Chessground } from "chessground";
 import useStudyStore from "~/state/study";
 import BoardModal from "~/components/Board/BoardModal";
+import useBoardStore from "~/state/board";
 
 const Board = () => {
   const ref = useRef<HTMLDivElement>(null);
   const { currentMoveIndex, moveDataByIndex, move } = useStudyStore();
-  const [cg, setCg] = useState<Api>();
+  const { chessground, setChessground } = useBoardStore();
   useEffect(() => {
     console.log("useEffect fen", moveDataByIndex.get(currentMoveIndex)!.fen);
-    cg?.set({
+    chessground?.set({
       fen: moveDataByIndex.get(currentMoveIndex)!.fen,
       movable: {
         dests: moveDataByIndex.get(currentMoveIndex)!.dests,
@@ -20,7 +20,7 @@ const Board = () => {
   }, [currentMoveIndex]);
   useEffect(() => {
     if (!ref.current) return;
-    const chessgroundApi = ChessgroundApi(ref.current, {
+    const chessgroundApi = Chessground(ref.current, {
       fen: moveDataByIndex.get(0)!.fen,
       animation: { enabled: true, duration: 150 },
       movable: {
@@ -33,8 +33,8 @@ const Board = () => {
       },
       trustAllEvents: true,
     });
-    if (cg) return;
-    setCg(chessgroundApi);
+    if (chessground) return;
+    setChessground(chessgroundApi);
   }, [ref]);
   return (
     <Box minW={"800px"} w={"800px"} h={"800px"} position={"relative"}>

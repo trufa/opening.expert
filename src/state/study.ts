@@ -101,7 +101,7 @@ const useStudyStore = create<StudyState>()(
           });
         };
         if (isPromotion(get().chess.fen(), orig, dest)) {
-          useBoardStore.getState().toggle();
+          useBoardStore.getState().toggleModal();
           const unsub = useBoardStore.subscribe(
             (state) => state.promotionPiece,
             (promotion) => {

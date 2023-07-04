@@ -1,25 +1,35 @@
 import { create } from "zustand";
 import { PromotionPieces } from "~/types";
 import { subscribeWithSelector } from "zustand/middleware";
+import { Color } from "chess.js";
+import { Api } from "chessground/api";
 
 interface BoardState {
-  show: boolean;
-  toggle: () => void;
+  chessground: Api | null;
+  setChessground: (cg: Api) => void;
+  showModal: boolean;
+  toggleModal: () => void;
   setPromotionPiece: (piece: PromotionPieces | null) => void;
   promotionPiece: PromotionPieces | null;
+  toggleOrientation: () => void;
 }
 
 const useBoardStore = create<BoardState>()(
   subscribeWithSelector((set, get) => {
     return {
-      show: false,
+      chessground: null,
+      setChessground: (cg) => set({ chessground: cg }),
+      showModal: false,
       promotionPiece: null,
-      toggle: () => set((state) => ({ show: !state.show })),
+      toggleModal: () => set((state) => ({ showModal: !state.showModal })),
       setPromotionPiece: (piece) => {
         set({ promotionPiece: piece });
         if (piece) {
-          get().toggle();
+          get().toggleModal();
         }
+      },
+      toggleOrientation: () => {
+        get().chessground?.toggleOrientation();
       },
     };
   })

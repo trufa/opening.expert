@@ -4,7 +4,7 @@ import Piece from "~/components/Piece/Piece";
 import { PromotionPieces } from "~/types";
 
 const BoardModal = () => {
-  const { show, setPromotionPiece } = useBoardStore();
+  const { showModal, setPromotionPiece } = useBoardStore();
   const promotionPieces: PromotionPieces[] = ["q", "r", "n", "b"];
 
   return (
@@ -14,7 +14,7 @@ const BoardModal = () => {
       position={"absolute"}
       zIndex={3}
       backgroundColor={"rgba(0,0,0,0.5)"}
-      display={show ? "flex" : "none"}
+      display={showModal ? "flex" : "none"}
       justifyContent={"center"}
       alignItems={"center"}
     >
