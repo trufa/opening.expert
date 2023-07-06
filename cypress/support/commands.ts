@@ -12,25 +12,37 @@ declare global {
       fenShould(fen: FEN): void;
       data(dataCyId: string): Chainable<JQuery<HTMLElement>>;
       playGame(gameBySquares: GameBySquares): void;
+      testBoardStore(): Chainable<void>;
+      testStudyStore(): Chainable<void>;
     }
   }
 }
 
 const TEST_BOARD_SIZE_PX = 800;
 
+Cypress.Commands.add("testBoardStore", () => {
+  return cy.window().its("useBoardStore").invoke("getState");
+});
+
+Cypress.Commands.add("testStudyStore", () => {
+  return cy.window().its("useStudyStore").invoke("getState");
+});
+
 Cypress.Commands.add("move", (clickMove) => {
+  cy.data("board").should("be.visible"); // wait for chessground to load
   clickMove.map((square) => {
-    cy.get("cg-board").click(...getOffsetBySquare(TEST_BOARD_SIZE_PX, square));
+    cy.testBoardStore()
+      .invoke("getOrientation")
+      .then((orientation) => {
+        cy.get("cg-board").click(
+          ...getOffsetBySquare(TEST_BOARD_SIZE_PX, square, orientation)
+        );
+      });
   });
 });
 
 Cypress.Commands.add("fenShould", (fen) => {
-  cy.window()
-    .its("useStudyStore")
-    .invoke("getState")
-    .its("computed")
-    .invoke("currentFen")
-    .should("eq", fen);
+  cy.testStudyStore().its("computed").invoke("currentFen").should("eq", fen);
 });
 
 Cypress.Commands.add("data", (dataCyId) => {

@@ -53,4 +53,12 @@ describe("Check that controls move around", () => {
     expect(cy.data("control-forward").should("be.disabled"));
     expect(cy.data("control-end").should("be.disabled"));
   });
+
+  it("Should flip board", () => {
+    cy.testBoardStore().invoke("getOrientation").should("eq", "w");
+    cy.data("control-flip").click();
+    cy.testBoardStore().invoke("getOrientation").should("eq", "b");
+    cy.data("control-flip").click();
+    cy.testBoardStore().invoke("getOrientation").should("eq", "w");
+  });
 });

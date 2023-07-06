@@ -37,7 +37,14 @@ const Board = () => {
     setChessground(chessgroundApi);
   }, [ref]);
   return (
-    <Box minW={"800px"} w={"800px"} h={"800px"} position={"relative"}>
+    <Box
+      minW={"800px"}
+      w={"800px"}
+      h={"800px"}
+      position={"relative"}
+      display={chessground ? "block" : "none"}
+      data-cy={"board"}
+    >
       <BoardModal />
       <Box
         ref={ref}

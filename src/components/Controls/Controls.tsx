@@ -49,7 +49,7 @@ const Controls = () => {
       >
         <Icon as={PiArrowLineRight} />
       </Button>
-      <Button onClick={toggleOrientation}>
+      <Button data-cy={"control-flip"} onClick={toggleOrientation}>
         <Icon as={LuFlipVertical} />
       </Button>
     </>

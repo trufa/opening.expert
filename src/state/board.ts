@@ -12,6 +12,7 @@ interface BoardState {
   setPromotionPiece: (piece: PromotionPieces | null) => void;
   promotionPiece: PromotionPieces | null;
   toggleOrientation: () => void;
+  getOrientation: () => Color;
 }
 
 const useBoardStore = create<BoardState>()(
@@ -31,8 +32,22 @@ const useBoardStore = create<BoardState>()(
       toggleOrientation: () => {
         get().chessground?.toggleOrientation();
       },
+      getOrientation: () => {
+        const orientation =
+          get().chessground?.state.orientation === "white" ? "w" : "b";
+        if (!get().chessground) {
+          throw new Error("chessground is not set");
+        }
+        return orientation;
+      },
     };
   })
 );
+
+// @ts-ignore
+if (typeof window !== "undefined" && window.Cypress) {
+  // @ts-ignore
+  window.useBoardStore = useBoardStore;
+}
 
 export default useBoardStore;
