@@ -20,6 +20,7 @@ describe("Check basic moves in study", () => {
   for (const [p, fen] of Object.entries(promotionPieceFenMap)) {
     it(`White can promote to "${p}"`, () => {
       cy.playGame(gamesBySquares.shortPathToPromotion);
+      cy.data(`piece-${p}-w`).should("be.visible");
       cy.data(`promotion-piece-${p}`).click();
       cy.fenShould(fen);
     });
@@ -29,6 +30,7 @@ describe("Check basic moves in study", () => {
     it(`White can promote to "${p}" when flipped`, () => {
       cy.data("control-flip").click();
       cy.playGame(gamesBySquares.shortPathToPromotion);
+      cy.data(`piece-${p}-w`).should("be.visible");
       cy.data(`promotion-piece-${p}`).click();
       cy.fenShould(fen);
     });
@@ -44,6 +46,7 @@ describe("Check basic moves in study", () => {
   for (const [p, fen] of Object.entries(promotionPieceFenMapBlack)) {
     it(`Black can promote to "${p}"`, () => {
       cy.playGame(gamesBySquares.shortPathToPromotionBlack);
+      cy.data(`piece-${p}-b`).should("be.visible");
       cy.data(`promotion-piece-${p}`).click();
       cy.fenShould(fen);
     });
@@ -53,6 +56,7 @@ describe("Check basic moves in study", () => {
     it(`Black can promote to "${p}" when flipped`, () => {
       cy.data("control-flip").click();
       cy.playGame(gamesBySquares.shortPathToPromotionBlack);
+      cy.data(`piece-${p}-b`).should("be.visible");
       cy.data(`promotion-piece-${p}`).click();
       cy.fenShould(fen);
     });

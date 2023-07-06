@@ -11,6 +11,7 @@ interface Props {
 const Piece = ({ piece, color, sizePx = 70 }: Props) => {
   return (
     <Box
+      data-cy={`piece-${piece}-${color}`}
       w={`${sizePx}px`}
       h={`${sizePx}px`}
       backgroundImage={getPieceSvg(piece, color)}
