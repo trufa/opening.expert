@@ -29,7 +29,6 @@ Cypress.Commands.add("testStudyStore", () => {
 });
 
 Cypress.Commands.add("move", (clickMove) => {
-  cy.data("board").should("be.visible"); // wait for chessground to load
   clickMove.map((square) => {
     cy.testBoardStore()
       .invoke("getOrientation")

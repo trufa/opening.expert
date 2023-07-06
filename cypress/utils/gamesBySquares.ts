@@ -50,6 +50,19 @@ const shortPathToPromotion: GameBySquares = [
   ["b7", "a8"],
 ];
 
+const shortPathToPromotionBlack: GameBySquares = [
+  ["e2", "e4"],
+  ["d7", "d5"],
+  ["f2", "f3"],
+  ["d5", "e4"],
+  ["b1", "c3"],
+  ["e4", "f3"],
+  ["a2", "a3"],
+  ["f3", "g2"],
+  ["b2", "b4"],
+  ["g2", "h1"],
+];
+
 const shortExample: GameBySquares = [
   ["e2", "e4"],
   ["e7", "e5"],
@@ -70,12 +83,14 @@ const shortExampleWithEmptySecondPly: GameBySquares = [
 type GameNames =
   | "operaGame"
   | "shortPathToPromotion"
+  | "shortPathToPromotionBlack"
   | "shortExample"
   | "shortExampleWithEmptySecondPly";
 
 const gamesBySquares: Record<GameNames, GameBySquares> = {
   operaGame,
   shortPathToPromotion,
+  shortPathToPromotionBlack,
   shortExample,
   shortExampleWithEmptySecondPly,
 };

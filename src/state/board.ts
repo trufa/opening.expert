@@ -33,9 +33,10 @@ const useBoardStore = create<BoardState>()(
         get().chessground?.toggleOrientation();
       },
       getOrientation: () => {
+        console.log("window is defined", typeof window !== "undefined");
         const orientation =
           get().chessground?.state.orientation === "white" ? "w" : "b";
-        if (!get().chessground) {
+        if (!get().chessground && typeof window !== "undefined") {
           throw new Error("chessground is not set");
         }
         return orientation;
