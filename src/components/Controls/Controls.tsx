@@ -9,6 +9,7 @@ import {
 
 import { LuFlipVertical } from "react-icons/lu";
 import useBoardStore from "~/state/board";
+import { useEffect } from "react";
 
 const Controls = () => {
   const {
@@ -19,6 +20,19 @@ const Controls = () => {
   const { toggleOrientation } = useBoardStore();
   const backDisabled = currentMoveIndex === 0;
   const forwardDisabled = currentMoveIndex === moveLength() - 1;
+  const onKeyDown = (e: Event) => {
+    if (e instanceof KeyboardEvent) {
+      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+      const offset = e.key === "ArrowLeft" ? -1 : 1;
+      setCurrentMoveIndex(currentMoveIndex + offset);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [currentMoveIndex]);
   return (
     <>
       <Button

@@ -6,7 +6,7 @@ describe("Check that controls move around", () => {
     cy.playGame(gamesBySquares.shortExample);
   });
 
-  it("Jumps backwards and forwards", () => {
+  it("Jumps backwards and forwards when clicked", () => {
     cy.data("control-back").click();
     cy.fenShould(
       "r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3"
@@ -28,6 +28,31 @@ describe("Check that controls move around", () => {
       "r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3"
     );
   });
+
+  it("Jumps backwards and forwards when arrow", () => {
+    cy.get("body").type("{leftarrow}");
+    cy.fenShould(
+      "r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3"
+    );
+    cy.get("body").type("{leftarrow}");
+    cy.fenShould(
+      "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3"
+    );
+    cy.get("body").type("{leftarrow}");
+    cy.fenShould(
+      "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2"
+    );
+    cy.get("body").type("{rightarrow}");
+    cy.fenShould(
+      "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3"
+    );
+    cy.get("body").type("{rightarrow}");
+    cy.fenShould(
+      "r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3"
+    );
+  });
+
+  //TODO: Find a way to test key left and right hold down
 
   it("Jumps to start and end", () => {
     cy.data("control-start").click();
