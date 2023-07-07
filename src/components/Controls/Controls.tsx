@@ -12,11 +12,7 @@ import useBoardStore from "~/state/board";
 import { useEffect } from "react";
 
 const Controls = () => {
-  const {
-    currentMoveIndex,
-    setCurrentMoveIndex,
-    computed: { moveLength },
-  } = useStudyStore();
+  const { currentMoveIndex, setCurrentMoveIndex, moveLength } = useStudyStore();
   const { toggleOrientation } = useBoardStore();
   const backDisabled = currentMoveIndex === 0;
   const forwardDisabled = currentMoveIndex === moveLength() - 1;

@@ -41,7 +41,7 @@ Cypress.Commands.add("move", (clickMove) => {
 });
 
 Cypress.Commands.add("fenShould", (fen) => {
-  cy.testStudyStore().its("computed").invoke("currentFen").should("eq", fen);
+  cy.testStudyStore().invoke("currentFen").should("eq", fen);
 });
 
 Cypress.Commands.add("data", (dataCyId) => {

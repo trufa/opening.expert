@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Dests, FEN, Key } from "chessground/types";
 import { devtools } from "zustand/middleware";
 import useBoardStore from "./board";
-import { PromotionPieces } from "~/types";
+import { PGN, PromotionPieces } from "~/types";
 
 type Index = number;
 
@@ -22,11 +22,10 @@ interface StudyState {
   currentMoveIndex: Index;
   setCurrentMoveIndex: (index: Index) => void;
   turn: () => Color;
+  pgn: () => PGN;
+  moveLength: () => number;
+  currentFen: () => FEN;
   move: (orig: Key, dest: Key) => void;
-  computed: {
-    moveLength: () => number;
-    currentFen: () => FEN;
-  };
 }
 
 const toDests = (fen: FEN): Dests => {
@@ -67,22 +66,21 @@ const useStudyStore = create<StudyState>()(
       }),
       branches: new Map(),
       currentMoveIndex: 0,
-      computed: {
-        moveLength: () => get().moveDataByIndex.size,
-        currentFen: () =>
-          get().moveDataByIndex.get(get().currentMoveIndex)?.fen ?? initialFen,
-      },
+      moveLength: () => get().moveDataByIndex.size,
+      currentFen: () =>
+        get().moveDataByIndex.get(get().currentMoveIndex)?.fen ?? initialFen,
       setCurrentMoveIndex: (index: number) => {
         if (index < 0) {
           index = 0;
         }
-        const moveLength = get().computed.moveLength();
+        const moveLength = get().moveLength();
         if (index > moveLength - 1) {
           index = moveLength - 1;
         }
         set(() => ({ currentMoveIndex: index }));
       },
       turn: () => get().chess.turn(),
+      pgn: () => get().chess.pgn(),
       move: (orig, dest) => {
         const todo = (promotion: PromotionPieces | null) => {
           const move = get().chess.move({
