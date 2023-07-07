@@ -16,6 +16,7 @@ jobs:
         with:
           build: npm run build
           start: npm start
+          record: false
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}

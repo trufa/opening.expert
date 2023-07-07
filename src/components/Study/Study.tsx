@@ -1,15 +1,17 @@
-import { Box } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 import PgnViewer from "~/components/PgnViewer/PgnViewer";
 import Board from "~/components/Board/Board";
 import Fen from "~/components/Fen/Fen";
 
 const Study = () => {
   return (
-    <Box>
-      <Board />
-      <PgnViewer />
+    <>
+      <HStack alignItems={"flex-start"}>
+        <Board />
+        <PgnViewer />
+      </HStack>
       <Fen />
-    </Box>
+    </>
   );
 };
 

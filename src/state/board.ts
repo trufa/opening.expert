@@ -1,28 +1,54 @@
 import { create } from "zustand";
 import { PromotionPieces } from "~/types";
 import { subscribeWithSelector } from "zustand/middleware";
+import { Color } from "chess.js";
+import { Api } from "chessground/api";
 
 interface BoardState {
-  show: boolean;
-  toggle: () => void;
+  chessground: Api | null;
+  setChessground: (cg: Api) => void;
+  showModal: boolean;
+  toggleModal: () => void;
   setPromotionPiece: (piece: PromotionPieces | null) => void;
   promotionPiece: PromotionPieces | null;
+  toggleOrientation: () => void;
+  getOrientation: () => Color;
 }
 
 const useBoardStore = create<BoardState>()(
   subscribeWithSelector((set, get) => {
     return {
-      show: false,
+      chessground: null,
+      setChessground: (cg) => set({ chessground: cg }),
+      showModal: false,
       promotionPiece: null,
-      toggle: () => set((state) => ({ show: !state.show })),
+      toggleModal: () => set((state) => ({ showModal: !state.showModal })),
       setPromotionPiece: (piece) => {
         set({ promotionPiece: piece });
         if (piece) {
-          get().toggle();
+          get().toggleModal();
         }
+      },
+      toggleOrientation: () => {
+        get().chessground?.toggleOrientation();
+      },
+      getOrientation: () => {
+        console.log("window is defined", typeof window !== "undefined");
+        const orientation =
+          get().chessground?.state.orientation === "white" ? "w" : "b";
+        if (!get().chessground && typeof window !== "undefined") {
+          throw new Error("chessground is not set");
+        }
+        return orientation;
       },
     };
   })
 );
+
+// @ts-ignore
+if (typeof window !== "undefined" && window.Cypress) {
+  // @ts-ignore
+  window.useBoardStore = useBoardStore;
+}
 
 export default useBoardStore;

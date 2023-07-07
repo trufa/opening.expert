@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Chess } from "chess.js";
+import { Chess, Color } from "chess.js";
 import { v4 as uuidv4 } from "uuid";
 import { Dests, FEN, Key } from "chessground/types";
 import { devtools } from "zustand/middleware";
@@ -21,6 +21,7 @@ interface StudyState {
   branches: Map<Index, StudyState[]>;
   currentMoveIndex: Index;
   setCurrentMoveIndex: (index: Index) => void;
+  turn: () => Color;
   move: (orig: Key, dest: Key) => void;
   computed: {
     moveLength: () => number;
@@ -44,10 +45,10 @@ const toDests = (fen: FEN): Dests => {
   return dests;
 };
 
-const promotionChess = new Chess();
+const promotionCalcChess = new Chess();
 const isPromotion = (fen: FEN, orig: Key, dest: Key): boolean => {
-  promotionChess.load(fen);
-  return promotionChess
+  promotionCalcChess.load(fen);
+  return promotionCalcChess
     .move({ from: orig, to: dest, promotion: "q" })
     .flags.includes("p");
 };
@@ -81,6 +82,7 @@ const useStudyStore = create<StudyState>()(
         }
         set(() => ({ currentMoveIndex: index }));
       },
+      turn: () => get().chess.turn(),
       move: (orig, dest) => {
         const todo = (promotion: PromotionPieces | null) => {
           const move = get().chess.move({
@@ -101,7 +103,7 @@ const useStudyStore = create<StudyState>()(
           });
         };
         if (isPromotion(get().chess.fen(), orig, dest)) {
-          useBoardStore.getState().toggle();
+          useBoardStore.getState().toggleModal();
           const unsub = useBoardStore.subscribe(
             (state) => state.promotionPiece,
             (promotion) => {

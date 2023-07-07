@@ -5,7 +5,7 @@ const Fen = () => {
   const {
     computed: { currentFen },
   } = useStudyStore();
-  return <Box>{currentFen()}</Box>;
+  return <Box data-cy={"fen"}>{currentFen()}</Box>;
 };
 
 export default Fen;

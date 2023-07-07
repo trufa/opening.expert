@@ -2,11 +2,12 @@ import { Box, HStack } from "@chakra-ui/react";
 import useBoardStore from "~/state/board";
 import Piece from "~/components/Piece/Piece";
 import { PromotionPieces } from "~/types";
+import useStudyStore from "~/state/study";
 
 const BoardModal = () => {
-  const { show, setPromotionPiece } = useBoardStore();
+  const { showModal, setPromotionPiece, chessground } = useBoardStore();
+  const { turn } = useStudyStore();
   const promotionPieces: PromotionPieces[] = ["q", "r", "n", "b"];
-
   return (
     <Box
       width={"100%"}
@@ -14,7 +15,7 @@ const BoardModal = () => {
       position={"absolute"}
       zIndex={3}
       backgroundColor={"rgba(0,0,0,0.5)"}
-      display={show ? "flex" : "none"}
+      display={showModal ? "flex" : "none"}
       justifyContent={"center"}
       alignItems={"center"}
     >
@@ -29,7 +30,7 @@ const BoardModal = () => {
               boxShadow: "3px 3px 5px 0px rgba(0,0,0,0.1)",
             }}
           >
-            <Piece piece={piece} color={"w"} />
+            <Piece piece={piece} color={turn()} />
           </Box>
         ))}
       </HStack>
