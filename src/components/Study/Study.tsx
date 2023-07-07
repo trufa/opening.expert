@@ -1,4 +1,4 @@
-import { Box, HStack } from "@chakra-ui/react";
+import { HStack } from "@chakra-ui/react";
 import PgnViewer from "~/components/PgnViewer/PgnViewer";
 import Board from "~/components/Board/Board";
 import Fen from "~/components/Fen/Fen";

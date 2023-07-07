@@ -9,6 +9,10 @@ const Board = () => {
   const ref = useRef<HTMLDivElement>(null);
   const { currentMoveIndex, moveDataByIndex, move } = useStudyStore();
   const { chessground, setChessground } = useBoardStore();
+
+  // @ts-ignore
+  const enableMoveAnimation = typeof window !== "undefined" && !window.Cypress;
+
   useEffect(() => {
     console.log("useEffect fen", moveDataByIndex.get(currentMoveIndex)!.fen);
     chessground?.set({
@@ -22,7 +26,7 @@ const Board = () => {
     if (!ref.current) return;
     const chessgroundApi = Chessground(ref.current, {
       fen: moveDataByIndex.get(0)!.fen,
-      animation: { enabled: true, duration: 150 },
+      animation: { enabled: enableMoveAnimation, duration: 200 },
       movable: {
         free: false,
         dests: moveDataByIndex.get(0)!.dests,
