@@ -13,11 +13,13 @@ interface MoveData {
   dests: Dests;
 }
 
+type MoveDataByIndex = Map<Index, MoveData>;
+
 interface StudyState {
   id: string;
   parent: string | null;
   chess: Chess;
-  moveDataByIndex: Map<number, MoveData>;
+  moveDataByIndex: MoveDataByIndex;
   branches: Map<Index, StudyState[]>;
   currentMoveIndex: Index;
   setCurrentMoveIndex: (index: Index) => void;
@@ -26,6 +28,7 @@ interface StudyState {
   moveLength: () => number;
   currentFen: () => FEN;
   move: (orig: Key, dest: Key) => void;
+  loadPGN: (pgn: PGN) => void;
 }
 
 const toDests = (fen: FEN): Dests => {
@@ -115,6 +118,27 @@ const useStudyStore = create<StudyState>()(
         } else {
           todo(null);
         }
+      },
+      loadPGN: (pgn) => {
+        const chess = new Chess();
+        chess.loadPgn(pgn);
+        const moves = pgn.split(" ");
+        const newMoveDataByIndex: MoveDataByIndex = new Map().set(0, {
+          fen: initialFen,
+          dests: toDests(initialFen),
+        });
+        chess.history({ verbose: true }).map((move, i) => {
+          console.log("setting", i + 1, move.after);
+          newMoveDataByIndex.set(i + 1, {
+            fen: move.after,
+            dests: toDests(move.after),
+          });
+        });
+        set(() => ({
+          chess,
+          moveDataByIndex: newMoveDataByIndex,
+          currentMoveIndex: 0,
+        }));
       },
     };
   })
