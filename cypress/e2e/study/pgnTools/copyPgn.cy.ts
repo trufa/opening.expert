@@ -2,7 +2,7 @@ import gamesBySquares from "../../../utils/gamesBySquares";
 
 describe("Check functioning of PGN copying", () => {
   beforeEach(() => {
-    cy.visit(Cypress.env("NEXT_PUBLIC_SITE_URL"));
+    cy.visit(`${Cypress.env("NEXT_PUBLIC_SITE_URL")}/study`);
   });
 
   it("Copy should be disabled when no moves are made", () => {

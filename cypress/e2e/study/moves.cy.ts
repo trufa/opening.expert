@@ -2,7 +2,7 @@ import gamesBySquares from "../../utils/gamesBySquares";
 
 describe("Check that PgnViewer component works as expected", () => {
   beforeEach(() => {
-    cy.visit(Cypress.env("NEXT_PUBLIC_SITE_URL"));
+    cy.visit(`${Cypress.env("NEXT_PUBLIC_SITE_URL")}/study`);
   });
 
   it("Move ui should jump around", () => {
