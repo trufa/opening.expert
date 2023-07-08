@@ -4,6 +4,7 @@ import useStudyStore from "~/state/study";
 const DownloadPGN = () => {
   const { pgn } = useStudyStore();
   const download = () => {
+    //TODO: File name should be the study name
     const file = new File([pgn()], "study.pgn", {
       type: "text/plain",
     });
