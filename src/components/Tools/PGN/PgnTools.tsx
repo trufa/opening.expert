@@ -1,6 +1,7 @@
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { AiFillCaretDown } from "react-icons/ai";
 import CopyPGN from "~/components/Tools/PGN/CopyPGN";
+import DownloadPGN from "~/components/Tools/PGN/DownloadPGN";
 
 const PgnTools = () => {
   return (
@@ -14,7 +15,7 @@ const PgnTools = () => {
       </MenuButton>
       <MenuList>
         <CopyPGN />
-        <MenuItem>Download PGN</MenuItem>
+        <DownloadPGN />
       </MenuList>
     </Menu>
   );

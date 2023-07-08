@@ -1,6 +1,6 @@
 import gamesBySquares from "../../../utils/gamesBySquares";
 
-describe("Check functioning of PGN Tools", () => {
+describe("Check functioning of PGN copying", () => {
   beforeEach(() => {
     cy.visit(Cypress.env("NEXT_PUBLIC_SITE_URL"));
   });
