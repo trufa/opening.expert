@@ -2,6 +2,7 @@ import { Box, Heading } from "@chakra-ui/react";
 import useStudyStore from "~/state/study";
 import MoveUi from "~/components/MoveUi/MoveUi";
 import Controls from "~/components/Controls/Controls";
+import Tools from "~/components/Tools/Tools";
 
 const PgnViewer = () => {
   const { chess } = useStudyStore();
@@ -21,7 +22,12 @@ const PgnViewer = () => {
           </Box>
         );
       })}
-      <Controls />
+      <Box>
+        <Controls />
+      </Box>
+      <Box>
+        <Tools />
+      </Box>
     </Box>
   );
 };
