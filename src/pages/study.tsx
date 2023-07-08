@@ -1,7 +1,7 @@
 import Study from "~/components/Study/Study";
-import generateGSSP from "~/utils/generateGSSP";
+import generateAuthGSSP from "~/utils/generateAuthGSSP";
 
-export const getServerSideProps = generateGSSP("/study");
+export const getServerSideProps = generateAuthGSSP("/study");
 
 const StudyPage = () => {
   return <Study />;

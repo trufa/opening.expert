@@ -1,9 +1,9 @@
 import { GetServerSideProps } from "next";
 import { getServerAuthSession } from "~/server/auth";
 
-type GenerateGSSP = (callbackUrl: string) => GetServerSideProps;
+type GenerateAuthGSSP = (callbackUrl: string) => GetServerSideProps;
 
-const generateGSSP: GenerateGSSP = (callbackUrl) => async (ctx) => {
+const generateAuthGSSP: GenerateAuthGSSP = (callbackUrl) => async (ctx) => {
   const session = await getServerAuthSession(ctx);
   if (session) {
     return {
@@ -20,4 +20,4 @@ const generateGSSP: GenerateGSSP = (callbackUrl) => async (ctx) => {
   };
 };
 
-export default generateGSSP;
+export default generateAuthGSSP;
