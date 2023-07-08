@@ -14,7 +14,7 @@ describe("Check functioning of PGN download", () => {
     cy.data("download-pgn").should("be.enabled");
   });
 
-  it.only("Should copy PGN to clipboard", () => {
+  it("Should copy PGN to clipboard", () => {
     cy.playGame(gamesBySquares.shortExample);
     cy.data("pgn-tools-menu").click();
     cy.data("download-pgn").click();
