@@ -2,7 +2,7 @@ import gamesBySquares from "../../utils/gamesBySquares";
 
 describe("Check basic moves in study", () => {
   beforeEach(() => {
-    cy.visit(Cypress.env("NEXT_PUBLIC_SITE_URL"));
+    cy.visit(`${Cypress.env("NEXT_PUBLIC_SITE_URL")}/study`);
   });
 
   it("Can move one piece", () => {

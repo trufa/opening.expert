@@ -2,7 +2,7 @@ import gamesBySquares from "../../utils/gamesBySquares";
 
 describe("Check that controls move around", () => {
   beforeEach(() => {
-    cy.visit(Cypress.env("NEXT_PUBLIC_SITE_URL"));
+    cy.visit(`${Cypress.env("NEXT_PUBLIC_SITE_URL")}/study`);
     cy.playGame(gamesBySquares.shortExample);
   });
 
