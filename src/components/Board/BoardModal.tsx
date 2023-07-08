@@ -5,7 +5,7 @@ import { PromotionPieces } from "~/types";
 import useStudyStore from "~/state/study";
 
 const BoardModal = () => {
-  const { showModal, setPromotionPiece, chessground } = useBoardStore();
+  const { showModal, setPromotionPiece } = useBoardStore();
   const { turn } = useStudyStore();
   const promotionPieces: PromotionPieces[] = ["q", "r", "n", "b"];
   return (

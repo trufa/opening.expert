@@ -6,18 +6,10 @@ import {
   PiArrowLineLeft,
   PiArrowLineRight,
 } from "react-icons/pi";
-
-import { LuFlipVertical } from "react-icons/lu";
-import useBoardStore from "~/state/board";
 import { useEffect } from "react";
 
 const Controls = () => {
-  const {
-    currentMoveIndex,
-    setCurrentMoveIndex,
-    computed: { moveLength },
-  } = useStudyStore();
-  const { toggleOrientation } = useBoardStore();
+  const { currentMoveIndex, setCurrentMoveIndex, moveLength } = useStudyStore();
   const backDisabled = currentMoveIndex === 0;
   const forwardDisabled = currentMoveIndex === moveLength() - 1;
   const onKeyDown = (e: Event) => {
@@ -62,9 +54,6 @@ const Controls = () => {
         onClick={() => setCurrentMoveIndex(moveLength() - 1)}
       >
         <Icon as={PiArrowLineRight} />
-      </Button>
-      <Button data-cy={"control-flip"} onClick={toggleOrientation}>
-        <Icon as={LuFlipVertical} />
       </Button>
     </>
   );

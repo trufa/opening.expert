@@ -14,6 +14,7 @@ declare global {
       playGame(gameBySquares: GameBySquares): void;
       testBoardStore(): Chainable<void>;
       testStudyStore(): Chainable<void>;
+      assertValueCopiedToClipboard(value: string): void;
     }
   }
 }
@@ -41,7 +42,7 @@ Cypress.Commands.add("move", (clickMove) => {
 });
 
 Cypress.Commands.add("fenShould", (fen) => {
-  cy.testStudyStore().its("computed").invoke("currentFen").should("eq", fen);
+  cy.testStudyStore().invoke("currentFen").should("eq", fen);
 });
 
 Cypress.Commands.add("data", (dataCyId) => {
@@ -51,5 +52,11 @@ Cypress.Commands.add("data", (dataCyId) => {
 Cypress.Commands.add("playGame", (gameBySquares) => {
   gameBySquares.map((clickMove) => {
     cy.move(clickMove);
+  });
+});
+
+Cypress.Commands.add("assertValueCopiedToClipboard", (value) => {
+  cy.window().then((win) => {
+    cy.wrap(win.navigator.clipboard.readText()).should("eq", value);
   });
 });
