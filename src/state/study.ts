@@ -48,7 +48,9 @@ const toDests = (fen: FEN): Dests => {
 };
 
 const promotionCalcChess = new Chess();
+
 const isPromotion = (fen: FEN, orig: Key, dest: Key): boolean => {
+  console.log("fen", fen);
   promotionCalcChess.load(fen);
   return promotionCalcChess
     .move({ from: orig, to: dest, promotion: "q" })

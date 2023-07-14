@@ -8,7 +8,7 @@ import { useEffect } from "react";
 const Study = () => {
   const { loadPGN } = useStudyStore();
   useEffect(() => {
-    loadPGN("1. e4 h5 (1... a5) 2. f4");
+    //loadPGN("1. e4 h5 (1... a5) 2. f4");
   }, []);
   return (
     <>

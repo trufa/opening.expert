@@ -2,6 +2,7 @@ import gamesBySquares from "../../utils/gamesBySquares";
 
 describe("Check that PgnViewer shows correct moves", () => {
   beforeEach(() => {
+    cy.login();
     cy.visit(`${Cypress.env("NEXT_PUBLIC_SITE_URL")}/study`);
   });
 

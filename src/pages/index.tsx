@@ -1,7 +1,6 @@
 import { type NextPage } from "next";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
-import { api } from "~/api";
 import Link from "next/link";
 import { Heading } from "@chakra-ui/react";
 
@@ -25,6 +24,7 @@ const Home: NextPage = () => {
           </p>
           <button
             onClick={sessionData ? () => void signOut() : () => void signIn()}
+            data-cy={"sign-in-out"}
           >
             {sessionData ? "Sign out" : "Sign in / Sign up"}
           </button>
