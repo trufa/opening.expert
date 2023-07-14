@@ -1,5 +1,7 @@
 import { defineConfig } from "cypress";
 
+console.log("RUNNING CONFIG!", process.env.TEST_USER_EMAIL);
+
 export default defineConfig({
   viewportHeight: 1000,
   env: {
