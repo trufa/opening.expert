@@ -66,6 +66,11 @@ Cypress.Commands.add("login", () => {
   cy.session(
     "login",
     () => {
+      console.log(
+        "logging in!",
+        Cypress.env("TEST_USER_EMAIL"),
+        Cypress.env("TEST_USER_PASSWORD")
+      );
       cy.visit(`${Cypress.env("NEXT_PUBLIC_SITE_URL")}`);
       cy.data("sign-in-out").click();
       cy.get("button").contains("Sign in with Auth0").click();
