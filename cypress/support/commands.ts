@@ -15,6 +15,7 @@ declare global {
       testBoardStore(): Chainable<void>;
       testStudyStore(): Chainable<void>;
       assertValueCopiedToClipboard(value: string): void;
+      login(): void;
     }
   }
 }
@@ -59,4 +60,31 @@ Cypress.Commands.add("assertValueCopiedToClipboard", (value) => {
   cy.window().then((win) => {
     cy.wrap(win.navigator.clipboard.readText()).should("eq", value);
   });
+});
+
+Cypress.Commands.add("login", () => {
+  cy.session(
+    "login",
+    () => {
+      console.log(
+        "logging in!",
+        Cypress.env("TEST_USER_EMAIL"),
+        Cypress.env("TEST_USER_PASSWORD")
+      );
+      cy.visit(`${Cypress.env("NEXT_PUBLIC_SITE_URL")}`);
+      cy.data("sign-in-out").click();
+      cy.get("button").contains("Sign in with Auth0").click();
+      cy.origin("https://opening-expert.us.auth0.com", () => {
+        cy.get("#username").type(Cypress.env("TEST_USER_EMAIL"));
+        cy.get("#password")
+          .type(Cypress.env("TEST_USER_PASSWORD"))
+          .type("{enter}");
+      });
+    },
+    {
+      validate: () => {
+        cy.getCookie("next-auth.session-token").should("exist");
+      },
+    }
+  );
 });

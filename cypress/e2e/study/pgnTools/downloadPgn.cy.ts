@@ -2,6 +2,7 @@ import gamesBySquares from "../../../utils/gamesBySquares";
 
 describe("Check functioning of PGN download", () => {
   beforeEach(() => {
+    cy.login();
     cy.visit(`${Cypress.env("NEXT_PUBLIC_SITE_URL")}/study`);
   });
 
@@ -14,7 +15,7 @@ describe("Check functioning of PGN download", () => {
     cy.data("download-pgn").should("be.enabled");
   });
 
-  it.only("Should copy PGN to clipboard", () => {
+  it("Should copy PGN to clipboard", () => {
     cy.playGame(gamesBySquares.shortExample);
     cy.data("pgn-tools-menu").click();
     cy.data("download-pgn").click();

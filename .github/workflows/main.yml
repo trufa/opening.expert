@@ -9,6 +9,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      # Write the cypress.env.json file
+      - name: Write the cypress.env.json file 📝
+        run: |
+          echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json && cat cypress.env.json
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
@@ -25,3 +29,6 @@ jobs:
           AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
           AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0_CLIENT_SECRET }}
           AUTH0_ISSUER: ${{ secrets.AUTH0_ISSUER }}
+          TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+          TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+          CYPRESS_ENV_CI: ${{ secrets.CYPRESS_ENV_CI }}
