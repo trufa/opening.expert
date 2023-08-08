@@ -12,7 +12,7 @@ jobs:
       # Write the cypress.env.json file
       - name: Write the cypress.env.json file 📝
         run: |
-          echo '$CYPRESS_ENV_CI' > cypress.env.json && cat cypress.env.json
+          echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json && cat cypress.env.json
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
